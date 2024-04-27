@@ -21,9 +21,4 @@ public class LinhaProducaoController {
     @Autowired
     private LinhaProducaoService service;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Sensor> findOne(@PathVariable long id) {
-        return ResponseEntity.ok(service.save());
-    }
-
 }

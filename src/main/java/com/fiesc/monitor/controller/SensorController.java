@@ -19,10 +19,4 @@ public class SensorController {
     @Autowired
     private SensorService service;
 
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Sensor> findOne(@PathVariable long id) {
-        return ResponseEntity.ok(service.save());
-    }
-
 }

@@ -19,9 +19,4 @@ public class MaquinaController {
     @Autowired
     private MaquinaService service;
 
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Sensor> findOne(@PathVariable long id) {
-        return ResponseEntity.ok(service.save());
-    }
-
 }

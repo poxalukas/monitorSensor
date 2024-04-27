@@ -1,5 +1,6 @@
 package com.fiesc.monitor.controller;
 
+import com.fiesc.monitor.entity.DadosSensor;
 import com.fiesc.monitor.entity.Sensor;
 import com.fiesc.monitor.service.DadosSensorService;
 import com.fiesc.monitor.service.LinhaProducaoService;
@@ -16,10 +17,6 @@ public class DadosSensorController {
 
     @Autowired
     private DadosSensorService service;
-
-    @GetMapping(value = "/{id}")
-    public ResponseEntity<Sensor> findOne(@PathVariable long id) {
-        return ResponseEntity.ok(service.save());
-    }
+    
 
 }
