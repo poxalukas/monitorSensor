@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.print.attribute.standard.MediaSize;
 import java.sql.Timestamp;
 
 @Entity
@@ -22,4 +23,7 @@ public class DadosSensor {
 
     @Column(name = "timestamp")
     private Timestamp timestamp;
+
+    @Column(name = "data")
+    private Long data;
 }
