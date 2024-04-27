@@ -19,10 +19,11 @@ public class LinhaProducao {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "linhaProducao",fetch = FetchType.EAGER)
     private List<Maquina> maquinas;
 
     @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
 
 }

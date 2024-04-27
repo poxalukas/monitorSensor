@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name = "tb_sensor")
 @Getter
@@ -19,4 +21,12 @@ public class Sensor {
 
     @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
+
+    @ManyToOne
+    @JoinColumn(name = "maquina_id")
+    private Maquina maquina;
+
+    @OneToMany(mappedBy = "sensor", fetch = FetchType.EAGER)
+    private List<DadosSensor> dadosSensor;
+
 }

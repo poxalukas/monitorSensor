@@ -19,10 +19,13 @@ public class Maquina {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "maquina", fetch = FetchType.EAGER)
     private List<Sensor> sensores;
 
     @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
 
+    @ManyToOne
+    @JoinColumn(name = "linha_producao_id")
+    private LinhaProducao linhaProducao;
 }
