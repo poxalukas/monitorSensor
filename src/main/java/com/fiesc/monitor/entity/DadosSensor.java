@@ -1,8 +1,12 @@
 package com.fiesc.monitor.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.print.attribute.standard.MediaSize;
 import java.sql.Timestamp;
@@ -17,13 +21,13 @@ public class DadosSensor {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "sensor_id")
-    private Sensor sensor;
+    @Column(name = "sensor_id")
+    private Long sensor;
 
     @Column(name = "timestamp")
     private Timestamp timestamp;
 
     @Column(name = "data")
     private Long data;
+
 }
