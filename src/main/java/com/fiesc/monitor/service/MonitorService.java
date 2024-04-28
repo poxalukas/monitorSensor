@@ -5,10 +5,12 @@ import com.fiesc.monitor.entity.Sensor;
 import com.fiesc.monitor.repository.DadosSensorRepository;
 import com.fiesc.monitor.repository.SensorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.List;
@@ -28,24 +30,33 @@ public class MonitorService {
     @Autowired
     private ObjectMapper objectMapper;
 
+
+    public void startMonitoring() {
+        Thread thread = new Thread(this::monitorEndpoint);
+        thread.start();
+    }
+
     public void monitorEndpoint() {
         try {
             while (true) {
                 List<Sensor> sensors = sensorRepository.findByStatus(true);
                 for(Sensor sensor : sensors ) {
-                    URL url = new URL(endpoint+sensor.getName());
-                    HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                    connection.setRequestMethod("GET");
+                    try {
+                        URL url = new URL(endpoint+sensor.getName());
+                        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                        connection.setRequestMethod("GET");
 
-                    int responseCode = connection.getResponseCode();
-                    if (responseCode == HttpURLConnection.HTTP_OK) {
-                        DadosSensorDTO dadosSensorDTO = dadosResposta(connection);
-                        salvarDadosSensor(sensor,dadosSensorDTO);
-                        Thread.sleep(interval);
-                    }else {
-                        System.out.println("Falha ao obter os dados do sensor: " + sensor.getName() + ". Código de resposta: " + responseCode);
-                        sensor.setStatus(false);
-                        sensorRepository.save(sensor);
+                        int responseCode = connection.getResponseCode();
+                        if (responseCode == HttpURLConnection.HTTP_OK) {
+                            DadosSensorDTO dadosSensorDTO = dadosResposta(connection);
+                            salvarDadosSensor(sensor,dadosSensorDTO);
+                            Thread.sleep(interval);
+                        } else {
+                            System.out.println("Falha ao obter os dados do sensor: " + sensor.getName() + ". Código de resposta: " + responseCode);
+                            sensor.setStatus(false);
+                            sensorRepository.save(sensor);
+                        }
+                    } catch (ConnectException e) {
                     }
                 }
             }
@@ -55,7 +66,7 @@ public class MonitorService {
     }
     public void salvarDadosSensor(Sensor sensor, DadosSensorDTO dadosSensorDTO){
         DadosSensor dadosSensor = new DadosSensor();
-        dadosSensor.setSensor(sensor);
+        dadosSensor.setSensor(sensor.getId());
         dadosSensor.setTimestamp(dadosSensorDTO.getTimestamp());
         dadosSensor.setData(dadosSensorDTO.getData());
         dadosSensorRepository.save(dadosSensor);
