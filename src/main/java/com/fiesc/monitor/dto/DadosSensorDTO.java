@@ -10,9 +10,12 @@ import java.sql.Timestamp;
 @Setter
 public class DadosSensorDTO {
 
+    private Long id;
     private Long data;
     private String name;
 
     @JsonFormat(shape = JsonFormat.Shape.NUMBER)
     private Timestamp timestamp;
+
+    private SensorDTO sensorDTO;
 }
