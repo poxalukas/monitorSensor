@@ -35,5 +35,5 @@ public class LinhaProducao {
     @JsonManagedReference
     private Set<Maquina> maquinas;
 
-    
+
 }
