@@ -1,5 +1,14 @@
 package com.fiesc.monitor.entity;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fiesc.monitor.dto.LinhaProducaoDTO;
+import com.fiesc.monitor.dto.SensorDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,9 +33,7 @@ public class Sensor {
 
     @ManyToOne
     @JoinColumn(name = "maquina_id")
+    @JsonBackReference
     private Maquina maquina;
-
-    @OneToMany(mappedBy = "sensor", fetch = FetchType.EAGER)
-    private List<DadosSensor> dadosSensor;
 
 }

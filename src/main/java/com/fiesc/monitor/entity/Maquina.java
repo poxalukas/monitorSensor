@@ -1,5 +1,11 @@
 package com.fiesc.monitor.entity;
 
+import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fiesc.monitor.dto.LinhaProducaoDTO;
+import com.fiesc.monitor.dto.MaquinaDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,13 +25,19 @@ public class Maquina {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "maquina", fetch = FetchType.EAGER)
-    private List<Sensor> sensores;
-
     @Column(name = "status", columnDefinition = "BOOLEAN DEFAULT TRUE")
     private Boolean status;
 
-    @ManyToOne
-    @JoinColumn(name = "linha_producao_id")
+    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonBackReference
     private LinhaProducao linhaProducao;
+
+    @Column(name = "nmr_sequencia")
+    private Long sequencia;
+
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonManagedReference
+    private List<Sensor> sensores;
+
+
 }
