@@ -10,9 +10,11 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -24,7 +26,7 @@ public class MonitorService {
 
     @Autowired
     private DadosSensorRepository dadosSensorRepository;
-    String endpoint = "http://127.0.0.1:5000/api/v1/sensors?name=";
+    String endpoint = "http://127.0.0.1:5000/api/v1/sensors";
     int interval = 300;
 
     @Autowired
@@ -35,6 +37,25 @@ public class MonitorService {
         Thread thread = new Thread(this::monitorEndpoint);
         thread.start();
     }
+    public void saveOrUpdate(Sensor sensor, boolean save) throws IOException {
+        try {
+            URL url = new URL(endpoint);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod(save ? "PUT" : "POST");
+
+            String requestBody = "{\"sensor\": \"" + sensor.getName() + "\", \"setpoint\": " + sensor.getSetpoint() + "}";
+
+            connection.setRequestProperty("Content-Type", "application/json");
+
+            connection.setDoOutput(true);
+            byte[] requestBodyBytes = requestBody.getBytes(StandardCharsets.UTF_8);
+            try (OutputStream outputStream = connection.getOutputStream()) {
+                outputStream.write(requestBodyBytes, 0, requestBodyBytes.length);
+            }
+
+            int responseCode = connection.getResponseCode();
+        }catch (ConnectException e) {}
+    }
 
     public void monitorEndpoint() {
         try {
@@ -42,7 +63,7 @@ public class MonitorService {
                 List<Sensor> sensors = sensorRepository.findByStatus(true);
                 for(Sensor sensor : sensors ) {
                     try {
-                        URL url = new URL(endpoint+sensor.getName());
+                        URL url = new URL(endpoint+"?name="+sensor.getName());
                         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                         connection.setRequestMethod("GET");
 
