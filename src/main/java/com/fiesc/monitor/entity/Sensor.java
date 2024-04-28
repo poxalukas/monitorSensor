@@ -36,4 +36,7 @@ public class Sensor {
     @JsonBackReference
     private Maquina maquina;
 
+    @Column(name = "setpoint")
+    private Long setpoint;
+
 }
