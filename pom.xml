@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.fiesc</groupId>
-	<artifactId>monitor</artifactId>
+	<artifactId>monitor-backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>monitor</name>
 	<description>Monitor de sensor</description>

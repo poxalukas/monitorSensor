@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -33,7 +34,7 @@ public class LinhaProducao {
 
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonManagedReference
-    private Set<Maquina> maquinas;
+    private List<Maquina> maquinas;
 
 
 }
