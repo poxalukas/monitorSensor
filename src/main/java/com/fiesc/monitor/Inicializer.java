@@ -14,6 +14,6 @@ public class Inicializer {
 
     @PostConstruct
     public void postConstruct(){
-        service.monitorEndpoint();
+        service.startMonitoring();
     }
 }
