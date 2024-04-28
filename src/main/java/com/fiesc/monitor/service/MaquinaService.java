@@ -26,11 +26,14 @@ public class MaquinaService {
     @Autowired
     private LinhaProducaoRepository linhaProducaoRepository;
 
+
+
     public Maquina save(Maquina maquina) throws Exception {
         LinhaProducao linhaProducao = linhaProducaoRepository.findById(maquina.getLinhaProducao().getId())
                 .orElseThrow(() -> new Exception("Linha de produção não encontrada com o ID: " + maquina.getLinhaProducao().getId()));
         maquina.setLinhaProducao(linhaProducao);
         linhaProducao.getMaquinas().add(maquina);
+        maquina.setStatus(true);
         return repository.save(maquina);
     }
     public Maquina update(Maquina maquinaDTO) throws Exception {
@@ -40,9 +43,9 @@ public class MaquinaService {
         Maquina maquina = repository.findById(maquinaDTO.getId())
                 .orElseThrow(() -> new Exception("Maquina não encontrada com o ID: " + maquinaDTO.getId()));
 
-        maquina.setName(maquinaDTO.getName());
-        maquina.setStatus(maquinaDTO.getStatus());
-        maquina.setSequencia(maquinaDTO.getSequencia());
+        maquina.setName(maquinaDTO.getName()!= null ? maquinaDTO.getName() : maquina.getName());
+        maquina.setStatus(maquinaDTO.getStatus()!= null ? maquinaDTO.getStatus() : maquina.getStatus());
+        maquina.setSequencia(maquinaDTO.getSequencia()!= null ? maquinaDTO.getSequencia() : maquina.getSequencia());
         return  repository.save(maquina);
     }
 

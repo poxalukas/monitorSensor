@@ -29,8 +29,8 @@ public class LinhaProducaoService {
             return null;
         LinhaProducao linhaProducao = repository.findById(linhaProducaoDTO.getId())
                 .orElseThrow(() -> new Exception("Linha de produção não encontrada com o ID: " + linhaProducaoDTO.getId()));
-        linhaProducao.setName(linhaProducaoDTO.getName());
-        linhaProducao.setStatus(linhaProducaoDTO.getStatus());
+        linhaProducao.setName(linhaProducaoDTO.getName()!= null ? linhaProducaoDTO.getName() : linhaProducao.getName());
+        linhaProducao.setStatus(linhaProducaoDTO.getStatus()!= null ? linhaProducaoDTO.getStatus() : linhaProducao.getStatus());
         return  repository.save(linhaProducao);
 
     }
