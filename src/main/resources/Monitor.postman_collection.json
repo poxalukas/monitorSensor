@@ -1,0 +1,382 @@
+{
+	"info": {
+		"_postman_id": "1be541f7-3c1a-423a-8494-380a28b27ebc",
+		"name": "Monitor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29193416"
+	},
+	"item": [
+		{
+			"name": "DadosSensor",
+			"item": [
+				{
+					"name": "BuscarDadosSensor",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_monitor}}/dados-sensor/1",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"dados-sensor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "LinhaProducao",
+			"item": [
+				{
+					"name": "FindOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_monitor}}/linha-producao/1",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"linha-producao",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"name\": \"Linha de Producao - 01\",\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/linha-producao/update",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"linha-producao",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"linhaProducao A\",\r\n    \"status\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/linha-producao/add",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"linha-producao",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pageSize\": 1000,\r\n  \"pageNumber\": 1,\r\n  \"sortOrder\": \"desc\",\r\n  \"sortField\": \"id\",\r\n  \"filter\": {}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/linha-producao/find",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"linha-producao",
+								"find"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Maquina",
+			"item": [
+				{
+					"name": "FindOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_monitor}}/maquina/1",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"maquina",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pageSize\": 1000,\r\n  \"pageNumber\": 1,\r\n  \"sortOrder\": \"desc\",\r\n  \"sortField\": \"id\",\r\n  \"filter\": {}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/maquina/find",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"maquina",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{   \r\n  \"id\":1,\r\n  \"name\": \"Maquina - 01\",\r\n  \"status\":false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/maquina/update",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"maquina",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Nome da Máquina\",\r\n  \"linhaProducao\":{\r\n    \"id\": 2\r\n},\r\n  \"sensores\": []\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/maquina/add",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"maquina",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sensor",
+			"item": [
+				{
+					"name": "FindOne",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_monitor}}/sensor/1",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"sensor",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "FindAll",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"pageSize\": 1000,\r\n  \"pageNumber\": 1,\r\n  \"sortOrder\": \"desc\",\r\n  \"sortField\": \"id\",\r\n  \"filter\": {}\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/sensor/find",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"sensor",
+								"find"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": 1,\r\n    \"status\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/sensor/update",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"sensor",
+								"update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"sensor4\",\r\n    \"status\": true,\r\n    \"maquina\":{\r\n        \"id\":1\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_monitor}}/sensor/add",
+							"host": [
+								"{{url_monitor}}"
+							],
+							"path": [
+								"sensor",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "New Request",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_monitor",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+}
