@@ -54,7 +54,9 @@ public class MonitorService {
             }
 
             int responseCode = connection.getResponseCode();
-        }catch (ConnectException e) {}
+        }catch (ConnectException e) {
+            e.printStackTrace();
+        }
     }
 
     public void monitorEndpoint() {
