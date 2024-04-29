@@ -43,6 +43,15 @@ public class SensorController {
        }
     }
 
+    @PutMapping(value = "/update-csv")
+    public ResponseEntity<?> updateEmMassa(@RequestBody Sensor sensor) throws Exception {
+        try {
+            return ResponseEntity.ok(service.updateCsv(sensor));
+        }catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
+        }
+    }
+
     @PostMapping(value = "/find")
     public ResponseEntity<Page<Sensor>> findAll(@RequestBody Request request) {
         return ResponseEntity.ok(service.findAll(request));

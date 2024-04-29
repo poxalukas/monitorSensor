@@ -11,6 +11,8 @@ import java.util.List;
 public interface SensorRepository extends JpaRepository<Sensor, Long>, JpaSpecificationExecutor<Sensor> {
     List<Sensor> findByStatus(boolean status);
 
+    Sensor findByName(String name);
+
     Boolean existsByName(String name);
 
 }

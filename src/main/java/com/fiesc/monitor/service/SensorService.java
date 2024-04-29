@@ -55,6 +55,14 @@ public class SensorService {
         return  repository.save(sensor);
     }
 
+    public Sensor updateCsv(Sensor sensorDTO) throws Exception {
+        Sensor sensor = repository.findByName(sensorDTO.getName());
+        sensor.setSetpoint(sensorDTO.getSetpoint()!= null ? sensorDTO.getSetpoint() : sensor.getSetpoint());
+        sensor.setStatus(true);
+        monitorService.saveOrUpdate(sensor, false);
+        return  repository.save(sensor);
+    }
+
 
     public Page<Sensor> findAll(Request request) {
         return repository.findAll(new GenericSpesification<>(request.getList()), request.getPageable());
